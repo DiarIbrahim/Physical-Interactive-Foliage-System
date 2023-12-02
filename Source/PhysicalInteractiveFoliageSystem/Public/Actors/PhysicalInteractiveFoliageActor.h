@@ -24,13 +24,13 @@ protected:
 	// Components
 
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Intractive Foliage | Components")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage | Components")
 	class USceneComponent* root;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Intractive Foliage | Components")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage | Components")
 	class USkeletalMeshComponent* mesh;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Intractive Foliage | Components")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage | Components")
 	class USphereComponent* collision;
 
 
@@ -40,20 +40,20 @@ protected:
 		from this bone and below all bones will be set to simulate physics during the activation and vice versa for the Deactivation
 		if left blank, the root bone will be selected !
 	*/
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Intractive Foliage settings")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage settings")
 	FString CustomeRootBoneName;
 	/*
 		the time needed to blend out the physics simulation and deactivate the foliage.
 		in seconds
 	*/
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Intractive Foliage settings")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage settings")
 	float DeactiveBlendOutTime = 4.0;
 	/*
-		the time to destroy the intractive foliage and replace it by instanced static mesh
+		the time to destroy the Interactive Foliage and replace it by instanced static mesh
 		in seconds
 		NOTE: if less than @DeactiveBlendOutTime , then DeactiveBlendOutTime  will be used.
 	*/
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Intractive Foliage settings")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage settings")
 	float ReplacementTime = 5.0;
 
 

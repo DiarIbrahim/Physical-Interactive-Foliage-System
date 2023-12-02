@@ -2,6 +2,8 @@
 
 #include "Actors/PhysicalInteractiveFoliageActor.h"
 #include "Components/InstancedStaticMeshComponent.h"
+#include "Component/FoliageInteractionComponent.h"
+
 
 
 // Sets default values
@@ -33,6 +35,7 @@ APhysicalInteractiveFoliageActor::APhysicalInteractiveFoliageActor()
 	if (!collision) {
 		collision = CreateDefaultSubobject<USphereComponent>(FName("Sphere Component"));
 		collision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+		collision->SetRelativeLocation(FVector(0, 0, 50));
 		collision->SetSphereRadius(100);
 		collision->SetupAttachment(root);
 	}
@@ -64,9 +67,8 @@ void APhysicalInteractiveFoliageActor::BeginPlay()
 
 void APhysicalInteractiveFoliageActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (Cast<APawn>(OtherActor)) {
+	if (OtherActor->GetComponentByClass<UFoliageInteractionComponent>()) {
 		actorsOverlapped.AddUnique(OtherActor);
-		ActivateFoliage();
 		ActivateFoliage();
 
 	}

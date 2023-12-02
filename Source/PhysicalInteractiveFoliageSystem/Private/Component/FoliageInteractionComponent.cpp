@@ -19,12 +19,12 @@ UFoliageInteractionComponent::UFoliageInteractionComponent()
 }
 
 
+float AutoActivateCounter = 0;
 // Called when the game starts
 void UFoliageInteractionComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
+	AutoActivateRate = FMath::Clamp(AutoActivateRate , 0.2 , 2.0);
 
 }
 
@@ -34,7 +34,15 @@ void UFoliageInteractionComponent::TickComponent(float DeltaTime, ELevelTick Tic
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+
+	if (bAutoActivateFoliages && AutoActivateCounter <= 0) {
+		ActivateFoliagesInRange(AutoActivateCheckRadius,0);
+		AutoActivateCounter = AutoActivateRate;
+	}
+	else if (bAutoActivateFoliages) {
+		AutoActivateCounter -= DeltaTime;
+	}
+
 }
 
 void UFoliageInteractionComponent::ActivateFoliagesInRange(float ActivationRadius, bool bDebug)

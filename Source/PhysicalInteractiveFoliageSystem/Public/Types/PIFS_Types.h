@@ -48,17 +48,18 @@ struct FIntractFoliageSet {
 	GENERATED_BODY()
 
 	FIntractFoliageSet() {}
-	/*
-		the static mesh of the foliage that spawned in to the world
-	*/
-	UPROPERTY(BlueprintType, EditAnywhere)
-	UStaticMesh* foliageStaticMesh;
 
 	/*
 		the BP class of the interactive foliage actor
 	*/
 	UPROPERTY(BlueprintType, EditAnywhere)
 	TSubclassOf<APhysicalInteractiveFoliageActor> foliageClass;
+
+	/*
+		the static mesh of the foliage that spawned in to the world
+	*/
+	UPROPERTY(BlueprintType, EditAnywhere)
+	UStaticMesh* foliageStaticMesh;
 
 };
 
