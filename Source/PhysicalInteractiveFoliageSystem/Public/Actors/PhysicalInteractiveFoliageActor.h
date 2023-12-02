@@ -114,6 +114,21 @@ protected:
 	UFUNCTION()
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+
+	/*
+		this function is called when this foliage activated
+		NOTE: for foliages with wide radius collision  will be bad choise to used this function for things like sound (not accurate)
+	*/
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnFoliageActivated();
+	
+	/*
+		this function is called when this foliage deactivated
+	*/
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnFoliageDeactivated();
+
+
 public:
 
 	/*

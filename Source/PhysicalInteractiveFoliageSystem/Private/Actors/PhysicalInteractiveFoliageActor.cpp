@@ -98,7 +98,9 @@ void APhysicalInteractiveFoliageActor::ActivateFoliage()
 	mesh->SetAllBodiesBelowSimulatePhysics(FName(CustomeRootBoneName), true, 0);
 	ActiveTimeConter = DeactiveBlendOutTime;
 	bIsActivated = true;
-	UE_LOG(LogTemp, Warning, TEXT("activated"));
+	
+	// call bp function
+	OnFoliageActivated();
 }
 
 void APhysicalInteractiveFoliageActor::DeactivateFoliage()
@@ -106,13 +108,15 @@ void APhysicalInteractiveFoliageActor::DeactivateFoliage()
 	mesh->SetAllBodiesBelowSimulatePhysics(FName(CustomeRootBoneName), false, 0);
 	mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	bIsActivated = false;
-	UE_LOG(LogTemp, Warning, TEXT("Deactivated"));
+
+	// call on bp
+	OnFoliageDeactivated();
+
 }
+
 
 void APhysicalInteractiveFoliageActor::OnSpawnTimeEnded()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Spawn time ended !"));
-
 
 	if (FoliageRecord.FoliageComponent) {
 
