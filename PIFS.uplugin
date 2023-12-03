@@ -2,7 +2,7 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "PhysicalInteractiveFoliageSystem",
+	"FriendlyName": "Physical Interactive Foliage System",
 	"Description": "",
 	"Category": "Other",
 	"CreatedBy": "Diar Ibrahim",
@@ -16,9 +16,9 @@
 	"Installed": false,
 	"Modules": [
 		{
-			"Name": "PhysicalInteractiveFoliageSystem",
+			"Name": "PIFS",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "PreDefault"
 		}
 	]
 }

@@ -83,7 +83,6 @@ void APhysicalInteractiveFoliageActor::InitSpawnedFoliage(FIntractFoliageRecord 
 {
 	FoliageRecord = record;
 	SpawnedTimeCounter = ReplacementTime;
-
 }
 
 

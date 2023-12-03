@@ -9,7 +9,7 @@
 #include "PhysicalInteractiveFoliageActor.generated.h"
 
 UCLASS()
-class PHYSICALINTERACTIVEFOLIAGESYSTEM_API APhysicalInteractiveFoliageActor : public AActor
+class PIFS_API APhysicalInteractiveFoliageActor : public AActor
 {
 	GENERATED_BODY()
 	
@@ -92,12 +92,12 @@ protected:
 	/*
 		manuly activates this actor and it will be physics interactiveS
 	*/
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable , Category = "Interactive Foliage")
 	void ActivateFoliage();
 	/*
 		manulay deactivates this foliage
 	*/
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Interactive Foliage")
 	void DeactivateFoliage();
 	/*
 		will be called when spawn time ends and player is not near this foliage
@@ -119,13 +119,13 @@ protected:
 		this function is called when this foliage activated
 		NOTE: for foliages with wide radius collision  will be bad choise to used this function for things like sound (not accurate)
 	*/
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent, Category = "Interactive Foliage")
 	void OnFoliageActivated();
 	
 	/*
 		this function is called when this foliage deactivated
 	*/
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent, Category = "Interactive Foliage")
 	void OnFoliageDeactivated();
 
 

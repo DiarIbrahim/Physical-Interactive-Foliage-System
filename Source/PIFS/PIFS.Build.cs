@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class PhysicalInteractiveFoliageSystem : ModuleRules
+public class PIFS : ModuleRules
 {
-	public PhysicalInteractiveFoliageSystem(ReadOnlyTargetRules Target) : base(Target)
+	public PIFS(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		

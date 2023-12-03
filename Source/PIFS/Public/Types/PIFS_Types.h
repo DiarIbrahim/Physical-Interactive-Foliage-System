@@ -52,20 +52,20 @@ struct FIntractFoliageSet {
 	/*
 		the BP class of the interactive foliage actor
 	*/
-	UPROPERTY(BlueprintType, EditAnywhere)
+	UPROPERTY(BlueprintType, EditAnywhere , Category = "Foliage Set")
 	TSubclassOf<APhysicalInteractiveFoliageActor> foliageClass;
 
 	/*
 		the static mesh of the foliage that spawned in to the world
 	*/
-	UPROPERTY(BlueprintType, EditAnywhere)
+	UPROPERTY(BlueprintType, EditAnywhere, Category = "Foliage Set")
 	UStaticMesh* foliageStaticMesh;
 
 };
 
 
 UCLASS()
-class PHYSICALINTERACTIVEFOLIAGESYSTEM_API UPIFS_Types : public UObject
+class PIFS_API UPIFS_Types : public UObject
 {
 	GENERATED_BODY()
 	

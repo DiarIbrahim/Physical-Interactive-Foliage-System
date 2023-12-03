@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FPhysicalInteractiveFoliageSystemModule : public IModuleInterface
+class FPIFS : public IModuleInterface
 {
 public:
 

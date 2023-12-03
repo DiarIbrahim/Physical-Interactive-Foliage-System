@@ -8,7 +8,7 @@
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class PHYSICALINTERACTIVEFOLIAGESYSTEM_API UFoliageInteractionComponent : public UActorComponent
+class PIFS_API UFoliageInteractionComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
