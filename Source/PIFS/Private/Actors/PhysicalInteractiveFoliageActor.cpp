@@ -61,8 +61,6 @@ void APhysicalInteractiveFoliageActor::BeginPlay()
 		collision->OnComponentBeginOverlap.AddDynamic(this, &APhysicalInteractiveFoliageActor::OnOverlap);
 		collision->OnComponentEndOverlap.AddDynamic(this, &APhysicalInteractiveFoliageActor::OnOverlapEnd);
 	}
-
-	DeactivateFoliage();
 }
 
 void APhysicalInteractiveFoliageActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
