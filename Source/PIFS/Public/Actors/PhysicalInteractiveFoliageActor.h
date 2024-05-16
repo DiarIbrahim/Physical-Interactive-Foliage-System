@@ -25,13 +25,13 @@ protected:
 
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage | Components")
-	class USceneComponent* root;
+	class USceneComponent* Root;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage | Components")
-	class USkeletalMeshComponent* mesh;
+	class USkeletalMeshComponent* Mesh;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Interactive Foliage | Components")
-	class USphereComponent* collision;
+	class USphereComponent* Collision;
 
 
 	//// Settings

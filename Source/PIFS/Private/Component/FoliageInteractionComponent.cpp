@@ -5,6 +5,7 @@
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Actors/PhysicalInteractiveFoliageActor.h"
 #include "Types/PIFS_Types.h"
+#include "Engine/World.h"
 #include "Kismet/kismetSystemLibrary.h"
 
 
@@ -59,7 +60,7 @@ void UFoliageInteractionComponent::ActivateFoliagesInRange(float ActivationRadiu
 
 	TArray<FIntractFoliageRecord> IntractRecords;
 
-	if (UKismetSystemLibrary::SphereTraceMulti(GetWorld(), GetOwner()->GetActorLocation(), GetOwner()->GetActorLocation(), ActivationRadius, ETraceTypeQuery::TraceTypeQuery2, 0, {}, EDrawDebugTrace::None, hits, 1)) {
+	if (UKismetSystemLibrary::SphereTraceMulti(this, GetOwner()->GetActorLocation(), GetOwner()->GetActorLocation(), ActivationRadius, ETraceTypeQuery::TraceTypeQuery2, 0, {}, EDrawDebugTrace::None, hits, 1)) {
 
 		for (const FHitResult h : hits) {
 			if (UInstancedStaticMeshComponent* instComp = Cast<UInstancedStaticMeshComponent>(h.GetComponent())) {
@@ -108,8 +109,8 @@ void UFoliageInteractionComponent::ReplaceFoliageStaticMeshWithInteractiveFoliag
 	for (FIntractFoliageSet foliage_actor : FoliageActorsSet) {
 		if (foliage_actor.foliageStaticMesh == record.FoliageComponent->GetStaticMesh()) {
 
-			if (APhysicalInteractiveFoliageActor* spawned = GetWorld()->SpawnActor<APhysicalInteractiveFoliageActor>(foliage_actor.foliageClass, record.GetFoliageTransform())) {
-				spawned->InitSpawnedFoliage(record);
+			if (APhysicalInteractiveFoliageActor* Spawned = GetWorld()->SpawnActor<APhysicalInteractiveFoliageActor>(foliage_actor.foliageClass, record.GetFoliageTransform())) {
+				Spawned->InitSpawnedFoliage(record);
 
 				// remove instance that we spawned this actor for
 				if (record.FoliageComponent && record.FoliageComponent->IsValidInstance(record.FoliageIndex)) {

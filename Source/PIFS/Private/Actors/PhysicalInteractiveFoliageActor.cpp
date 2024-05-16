@@ -3,6 +3,7 @@
 #include "Actors/PhysicalInteractiveFoliageActor.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Component/FoliageInteractionComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 
 
 
@@ -13,31 +14,30 @@ APhysicalInteractiveFoliageActor::APhysicalInteractiveFoliageActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 
-	if (!root) {
-		root = CreateDefaultSubobject<USceneComponent>(FName("rootcomponent"));
-		SetRootComponent(root);
+	if (!Root) {
+		Root = CreateDefaultSubobject<USceneComponent>(FName("Root component"));
+		SetRootComponent(Root);
 
 	}
 
-	if (!mesh) {
-		mesh = CreateDefaultSubobject<USkeletalMeshComponent>(FName("Mesh component"));
-		mesh->SetSimulatePhysics(false);
-		mesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
-		mesh->SetCollisionObjectType(ECC_PhysicsBody);
-		mesh->SetCollisionResponseToAllChannels(ECR_Block);
-		mesh->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
-		mesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
-		mesh->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Ignore);
-		mesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
-		mesh->SetupAttachment(root);
+	if (!Mesh) {
+		Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(FName("Mesh component"));
+		Mesh->SetSimulatePhysics(false);
+		Mesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+		Mesh->SetCollisionResponseToAllChannels(ECR_Block);
+		Mesh->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
+		Mesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+		Mesh->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Ignore);
+		Mesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+		Mesh->SetupAttachment(Root);
 	}
 
-	if (!collision) {
-		collision = CreateDefaultSubobject<USphereComponent>(FName("Sphere Component"));
-		collision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-		collision->SetRelativeLocation(FVector(0, 0, 50));
-		collision->SetSphereRadius(100);
-		collision->SetupAttachment(root);
+	if (!Collision) {
+		Collision = CreateDefaultSubobject<USphereComponent>(FName("Sphere Component"));
+		Collision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+		Collision->SetRelativeLocation(FVector(0, 0, 50));
+		Collision->SetSphereRadius(100);
+		Collision->SetupAttachment(Root);
 	}
 
 }
@@ -49,17 +49,17 @@ void APhysicalInteractiveFoliageActor::BeginPlay()
 
 
 	// set the bone name  to root bone name if CustomeRootBoneName left blank
-	if (CustomeRootBoneName.IsEmpty() && mesh) {
-		CustomeRootBoneName = mesh->GetBoneName(0).ToString();
+	if (CustomeRootBoneName.IsEmpty() && Mesh) {
+		CustomeRootBoneName = Mesh->GetBoneName(0).ToString();
 	}
 
 	if (ReplacementTime < DeactiveBlendOutTime) {
 		ReplacementTime = DeactiveBlendOutTime;
 	}
 
-	if (collision) {
-		collision->OnComponentBeginOverlap.AddDynamic(this, &APhysicalInteractiveFoliageActor::OnOverlap);
-		collision->OnComponentEndOverlap.AddDynamic(this, &APhysicalInteractiveFoliageActor::OnOverlapEnd);
+	if (Collision) {
+		Collision->OnComponentBeginOverlap.AddDynamic(this, &APhysicalInteractiveFoliageActor::OnOverlap);
+		Collision->OnComponentEndOverlap.AddDynamic(this, &APhysicalInteractiveFoliageActor::OnOverlapEnd);
 	}
 }
 
@@ -86,15 +86,15 @@ void APhysicalInteractiveFoliageActor::InitSpawnedFoliage(FIntractFoliageRecord 
 
 void APhysicalInteractiveFoliageActor::ActivateFoliage()
 {
-	mesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
-	mesh->SetCollisionProfileName("Custome");
-	mesh->SetCollisionObjectType(ECC_PhysicsBody);
-	mesh->SetCollisionResponseToAllChannels(ECR_Block);
-	mesh->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
-	mesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
-	mesh->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Ignore);
-	mesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
-	mesh->SetAllBodiesBelowSimulatePhysics(FName(CustomeRootBoneName), true, 0);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	Mesh->SetCollisionProfileName("Custom");
+	Mesh->SetCollisionObjectType(ECC_PhysicsBody);
+	Mesh->SetCollisionResponseToAllChannels(ECR_Block);
+	Mesh->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
+	Mesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	Mesh->SetCollisionResponseToChannel(ECC_PhysicsBody, ECR_Ignore);
+	Mesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+	Mesh->SetAllBodiesBelowSimulatePhysics(FName(CustomeRootBoneName), true, 0);
 	ActiveTimeConter = DeactiveBlendOutTime;
 	bIsActivated = true;
 	
@@ -104,8 +104,8 @@ void APhysicalInteractiveFoliageActor::ActivateFoliage()
 
 void APhysicalInteractiveFoliageActor::DeactivateFoliage()
 {
-	mesh->SetAllBodiesBelowSimulatePhysics(FName(CustomeRootBoneName), false, 0);
-	mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	Mesh->SetAllBodiesBelowSimulatePhysics(FName(CustomeRootBoneName), false, 0);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	bIsActivated = false;
 
 	// call on bp
@@ -145,7 +145,7 @@ void APhysicalInteractiveFoliageActor::Tick(float DeltaTime)
 	}
 	else if (bIsActivated && actorsOverlapped.IsEmpty()) {
 		ActiveTimeConter -= DeltaTime;
-		mesh->SetAllBodiesBelowPhysicsBlendWeight(FName(CustomeRootBoneName), ActiveTimeConter / DeactiveBlendOutTime, 0, 0);
+		Mesh->SetAllBodiesBelowPhysicsBlendWeight(FName(CustomeRootBoneName), ActiveTimeConter / DeactiveBlendOutTime, 0, 0);
 	}
 
 
